@@ -1,0 +1,428 @@
+<script>
+    window.onload = init;
+var petalos;
+var boton_jugar;
+var valores;
+
+
+function init(){
+	petalos = document.getElementsByClassName("petalo");
+	asignarEvento();
+  boton_jugar = document.getElementById("botonJugar");
+  boton_jugar.addEventListener("click",abrirJuego);
+ 
+}
+function asignarValores(){
+  var numero_aleatorio = Math.round(Math.random()*10);
+  var moneda = numero_aleatorio > 5;
+  valores = [];
+  for(var i=0;i<petalos.length;i++)
+	{
+    valores[i] = moneda;
+    moneda = !moneda;
+  }
+}
+function abrirJuego(){
+  var ventana_actual = document.getElementById("intro");
+  var ventana_juego = document.getElementById("juego");
+  ventana_actual.className = "hidden";
+  ventana_juego.className = "animated fadeIn";
+  asignarValores();
+  alert('Lo sabia :(')
+  document.getElementById("contenido").innerHTML = "";
+}
+function asignarEvento(){
+	for(var i=0;i<petalos.length;i++)
+	{
+		petalos[i].addEventListener("click",animar);
+	}
+}
+function colorAleatorio(){
+  var r = Math.round(Math.random()*255);
+  var g = Math.round(Math.random()*255);
+  var b = Math.round(Math.random()*255);
+  return "rgb("+r+","+g+","+b+")";
+}
+function animar(event){
+  var id_petalo = event.target.id;
+  var petalo = document.getElementById(""+id_petalo);
+  //petalo.style.backgroundColor = colorAleatorio(); 
+  petalo.className = "petalo animated fadeOutDown";
+  validarJugada(id_petalo);
+}
+
+
+function validarJugada(petalo){
+  var indice = parseInt(petalo.substr(1));
+  var str;
+  
+  if(valores[indice-1])
+  {
+    str = "Me quiere";
+  }
+  else
+  {
+    str = "No me quiere";    
+  }
+  //alert(mensaje);
+  texto_mensaje.innerHTML = str;
+  mensaje.className = "mostrar animated fadeIn";
+  setTimeout(()=>{
+    mensaje.className = "hidden";
+  },1000);
+}
+/*window.onload = init;
+var petalos;
+var contador;
+
+function init(){
+	var boton = document.getElementById("boton");
+	boton.addEventListener("click",animar);
+	contador = 0;
+	petalos =         document.getElementsByClassName("petalo");
+}
+
+function animar(){
+	if(contador+1<=petalos.length)
+	{
+		petalos[contador].className = "petalo animated bounce infinite";
+		contador = contador+1;
+	}
+}*/
+</script>
+<!-- Código de Natalia Ortega -->
+<!--<input type="button" value="animar" id="boton">-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="descarga.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELUZAI</title>
+</head>
+<body>
+  
+  <div id="mensaje" class="hidden">
+    <span id="texto_mensaje"></span>
+  </div>
+  <div id="intro">
+    <h1>
+      Me mientes?
+    </h1>
+    <input type="button" value="Si " id="botonJugar" />
+  </div> 
+  <div id="in">
+    <button id="miBoton">No</button>
+  </div>
+  <div id="juego" class="hidden">
+    <div id="postit">
+      <h2>Nota</h2>
+      <p>
+       <b>Se que no es una como querias para el dia de hoy :c, pero espero que la intención cuente </b>
+      </p>
+    </div>
+    <div id="figura">
+      <div id="flor">
+        <div id="p1" class="petalo animated fadeIn"></div>
+        <div id="p2" class="petalo animated fadeIn"></div>
+        <div id="p3" class="petalo animated fadeIn"></div>
+        <div id="p4" class="petalo animated fadeIn"></div>
+        <div id="p5" class="petalo animated fadeIn"></div>
+        <div id="p6" class="petalo animated fadeIn"></div>
+        <div id="centro" class="animated pulse infinite"></div>
+      </div>
+      <div id="cesped">
+        <div class="manga"></div>
+        <div class="manga"></div>
+        <div class="manga"></div>
+        <div class="manga"></div>
+        <div class="manga"></div>
+        <div class="manga"></div>
+        <div class="manga"></div>
+        <div class="fondo_manga"></div>
+      </div>
+      <div id="tallo"></div>
+      <div id="hoja"></div>
+    </div>
+  </div>
+  <div class="sunflower">
+    <div class="center"></div>
+</div>
+
+
+</body>
+</html>
+  <script>
+    var boton = document.getElementById("miBoton");
+  
+  // Función para hacer que el botón desaparezca
+  function desaparecerBoton() {
+    boton.style.display = "none"; // Establece el estilo display a "none" para ocultar el botón
+  }
+  
+  // Programa la función para ejecutarse después de 5 segundos (5000 milisegundos)
+  setTimeout(desaparecerBoton, 5000);
+  </script>
+  <style>
+    body
+{
+	background-color: #c0fdff;
+	font-family: Arial;
+}
+
+h1
+{
+	color: #ff0a54;
+	text-align: center;
+  position: absolute;
+  top: 25%; 
+  left: 45%;
+}
+#mensaje{
+  position:fixed;
+  right:30%;
+  border-radius:80px;
+  width:170px;
+  height:65px;
+  background:#a9def9;  
+  padding:20px 0 0 50px;
+  font-family:sans-serif;
+  font-weight:bold;
+  font-size:20px;
+  z-index:2;
+}
+#mensaje:after{
+  content:" ";
+  position:absolute;
+  width:40px;
+  height:60px;
+  top:50px;
+  left:50px;
+  border-radius:20px;
+  box-shadow: inset 0px 0px #a9def9, inset -16px 0px 1px 2px #a9def9;
+  z-index:1;
+}
+#intro p{
+  width:400px;
+  margin:20px auto;
+  font-family:sans-serif;
+}
+.hidden{
+  display:none;
+}
+.mostrar{
+  display:block;
+}
+#botonJugar{
+  width:200px;
+  height: 100px;
+  margin:0 auto;
+  display:block;
+  font-size:30px;
+  background-color:#99c1de;
+  color:#27187e;
+  border:0;
+  border-radius:20px;
+  cursor:pointer;
+  position: absolute;
+  top: 45%; 
+  left: 60%;
+}
+#miBoton{
+  width:200px;
+  height: 100px;
+  margin:0 auto;
+  display:block;
+  font-size:30px;
+  background-color:#99c1de;
+  color:#27187e;
+  border:0;
+  border-radius:20px;
+  cursor:pointer;
+  position: absolute;
+  top: 45%; 
+  left: 30%;
+}
+div.petalo
+{
+	background-color:#FFFFFF;
+	border-radius: 40px;
+	width: 80px;
+	height: 80px;
+	position: absolute;
+}
+#centro
+{
+	background-color: #DBA901;
+	border-radius: 50px;
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+	-ms-border-radius: 50px;
+	-o-border-radius: 50px;
+	width: 100px;
+	height: 100px;
+	top:50%;
+	left:50%;
+	position: absolute;
+	margin-top: -50px;
+	margin-left: -50px;
+}
+#tallo
+{
+	width: 15px;
+	height: 150px;
+	background-color: #006c67;
+	margin-top: -100px;
+	margin-left: 145px;
+}
+#hoja
+{
+	background-color: #006c67;
+	border-radius: 15px 0px 15px 0px;
+	width: 30px;
+	height: 30px;
+	margin-left: 160px;
+	margin-top: -90px;
+	position: absolute;
+}
+
+#flor
+{
+	width: 300px;
+	height: 300px;
+	background-color: transparent;
+	position: relative;
+}
+#p1
+{
+  font-size: 16px;
+	top:70px;
+	left:40px;
+}
+#p2
+{
+	top:40px;
+	left:110px;
+}
+#p3
+{
+	top:70px;
+	left:180px;
+}
+#p4
+{
+	top:145px;
+	left:44px;
+}
+#p5
+{
+	top:180px;
+	left:114px;
+}
+#p6
+{
+	top:140px;
+	left:180px;
+}
+#figura{
+	position: relative;
+	background-color: transparent;
+	top:0px ;
+	left: 0px;
+	width: 300px;
+	margin: auto;
+}
+#cesped{
+	position: absolute;
+	width: 394px;
+	position: absolute;
+	bottom: 0px;
+}
+.manga{
+	background: #80ed99;
+	transform:rotate(45deg);
+	-webkit-transform:rotate(45deg);
+	-moz-transform:rotate(45deg);
+	-ms-transform:rotate(45deg);
+	-o-transform:rotate(45deg);
+	width: 50px;
+	height: 50px;
+	display: inline-block;
+}
+.fondo_manga{
+  background: #80ed99;
+  height: 50px;
+  left: -10px;
+  position: absolute;
+  top: 26px;
+  width: 394px;
+}
+
+#postit{
+  position:fixed;
+  background:#e9ff70;
+  width:200px;
+  height:200px;
+  margin:20px;
+  right:10px;
+  padding:20px;
+}
+.options-container{
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #4CAF50; /* Verde */
+            border: none;
+            color: white;
+            cursor: pointer;
+            position: absolute;
+
+        }
+        .options-container{
+      display: none;
+    }
+    
+.button{
+  font-size: 16px;
+            padding: 30px 40px;
+            margin: 5px;
+            background-color: #4CAF50; /* Verde */
+            border: none;
+            color: white;
+            cursor: pointer;
+           
+           
+}
+#botones{
+  position:absolute;
+     top: 70%; 
+  left: 35%;
+  
+}
+  </style>
+
+<div id="botones" class="options-container">
+  <button class="button" onclick="showMessage('Cenar')">Opción 1</button>
+  <button class="button" onclick="showMessage('Bebida')">Opción 2</button>
+  <button class="button" onclick="showMessage('*****')">Opción 3</button>
+</div>
+
+<script>
+  function mostrarBotones() {
+  var botonesDiv = document.getElementById("botones");
+  botonesDiv.classList.remove("options-container"); // Elimina la clase "hidden" para mostrar los botones
+}
+
+// Llama a la función para mostrar los botones después de 3000 milisegundos (3 segundos)
+setTimeout(mostrarBotones, 15000);
+  let selectedOption = null;
+
+  function showMessage(option) {
+      if (selectedOption === null) {
+          selectedOption = option;
+          alert(`Has seleccionado: ${option}`);
+      } else {
+          alert("Solo puedes seleccionar una opción a la vez.");
+      }
+  }
+</script>
